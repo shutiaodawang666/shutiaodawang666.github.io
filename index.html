@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>企业微信回调验证</title>
+    <meta charset="utf-8">
+    <script>
+        // 这个脚本从URL参数中获取企业微信发来的 echostr，并原样返回
+        function getEchostr() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const echostr = urlParams.get('echostr');
+            console.log('收到企业微信验证请求，echostr为:', echostr);
+            
+            if (echostr) {
+                // 将echostr原样写入页面，企业微信的服务器会读取这个内容
+                document.getElementById('output').innerText = echostr;
+            } else {
+                document.getElementById('output').innerText = '等待企业微信验证...（未收到echostr参数）';
+            }
+        }
+        // 页面加载后自动运行
+        window.onload = getEchostr;
+    </script>
+</head>
+<body>
+    <h3>企业微信回调验证页面</h3>
+    <!-- 企业微信的服务器会读取这个div里的纯文本内容 -->
+    <div id="output" style="font-family: monospace; padding: 20px; background-color: #f0f0f0;"></div>
+    <p>此页面用于企业微信自建应用配置“接收消息”API时，完成URL有效性验证。</p>
+</body>
+</html>
